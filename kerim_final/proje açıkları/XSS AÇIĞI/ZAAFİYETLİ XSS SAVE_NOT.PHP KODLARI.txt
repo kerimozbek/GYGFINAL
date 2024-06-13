@@ -1,0 +1,26 @@
+<?php
+session_start();
+if (!isset($_SESSION['username'])) {
+    header("Location: login.php");
+    exit();
+}
+include 'config.php';
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $username = $_SESSION['username']; // Oturumdaki kullanıcı adı alınıyor
+    $title = $_POST['title']; // htmlspecialchars kaldırıldı
+    $note = $_POST['note']; // htmlspecialchars kaldırıldı
+
+    $stmt = $conn->prepare("INSERT INTO notes (username, title, note, date) VALUES (?, ?, ?, NOW())");
+    $stmt->bind_param("sss", $username, $title, $note);
+
+    if ($stmt->execute()) {
+        header("Location: notlistele.php");
+    } else {
+        echo "Hata: " . $stmt->error;
+    }
+
+    $stmt->close();
+    $conn->close();
+}
+?>
